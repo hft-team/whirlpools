@@ -1,7 +1,7 @@
 {
   "name": "@orca-so/whirlpools-monorepo",
   "private": true,
-  "packageManager": "yarn@4.4.0",
+  "packageManager": "yarn@4.5.1",
   "type": "module",
   "scripts": {
     "build": "nx run-many --target build --projects",
@@ -9,30 +9,22 @@
     "test": "nx run-many --target test --projects",
     "format": "nx run-many --target format --projects",
     "lint": "nx run-many --target lint --projects",
-    "clean": "nx reset && nx run-many --target clean --projects",
-    "prepare": "husky install"
+    "clean": "nx reset && nx run-many --target clean --projects"
   },
   "devDependencies": {
-    "@types/bn.js": "~5.1.6",
-    "@types/mocha": "^10.0.9",
-    "@types/node": "^22.7.5",
-    "@types/sinon": "^17.0.3",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "mocha": "^10.7.3",
-    "nx": "^20.0.0",
+    "@types/node": "^22.10.2",
+    "nx": "^20.2.2",
     "rimraf": "^6.0.1",
-    "sinon": "^19.0.2",
-    "ts-mocha": "^10.0.0"
+    "tsup": "^8.3.5",
+    "vitest": "^2.1.8"
   },
   "workspaces": [
     "programs/*",
     "rust-sdk/*",
     "ts-sdk/*",
     "legacy-sdk/*",
+    "examples/ts-sdk/*",
+    "examples/rust-sdk/*",
     "docs/*"
-  ],
-  "lint-staged": {
-    "*": "yarn format"
-  }
+  ]
 }

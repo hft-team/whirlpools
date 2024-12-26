@@ -28,7 +28,10 @@ import {
   openBundledPosition,
   openPosition,
 } from "../utils/init-utils";
-import { generateDefaultOpenPositionWithTokenExtensionsParams, mintTokensToTestAccount } from "../utils/test-builders";
+import {
+  generateDefaultOpenPositionWithTokenExtensionsParams,
+  mintTokensToTestAccount,
+} from "../utils/test-builders";
 import { TokenExtensionUtil } from "../../src/utils/public/token-extension-util";
 
 describe("close_bundled_position", () => {
@@ -47,7 +50,7 @@ describe("close_bundled_position", () => {
   let whirlpoolPda: PDA;
   const funderKeypair = anchor.web3.Keypair.generate();
 
-  before(async () => {
+  beforeAll(async () => {
     poolInitInfo = (await initTestPool(ctx, TickSpacing.Standard)).poolInitInfo;
     whirlpoolPda = poolInitInfo.whirlpoolPda;
     await systemTransferTx(
@@ -740,20 +743,21 @@ describe("close_bundled_position", () => {
       );
 
       // open position with TokenExtensions
-      const { params, mint } = await generateDefaultOpenPositionWithTokenExtensionsParams(
-        ctx,
-        poolInitInfo.whirlpoolPda.publicKey,
-        true,
-        0,
-        poolInitInfo.tickSpacing,
-        provider.wallet.publicKey,
-      );
+      const { params, mint } =
+        await generateDefaultOpenPositionWithTokenExtensionsParams(
+          ctx,
+          poolInitInfo.whirlpoolPda.publicKey,
+          true,
+          0,
+          poolInitInfo.tickSpacing,
+          provider.wallet.publicKey,
+        );
       await toTx(
         ctx,
         WhirlpoolIx.openPositionWithTokenExtensionsIx(ctx.program, params),
       )
-      .addSigner(mint)
-      .buildAndExecute();
+        .addSigner(mint)
+        .buildAndExecute();
 
       const tx = toTx(
         ctx,
